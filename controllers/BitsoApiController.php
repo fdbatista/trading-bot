@@ -25,7 +25,7 @@ class BitsoApiController extends Controller
 
         $this->BOOKS_ENDPOINT = $_ENV['BITSO_BOOKS_ENDPOINT'];
         $this->TICKER_ENDPOINT = $_ENV['BITSO_TICKER_ENDPOINT'];
-        $this->IGNORED_BOOKS = mbsplit(',', $_ENV['BITSO_IGNORED_BOOKS']);
+        $this->IGNORED_BOOKS = explode(',', $_ENV['BITSO_IGNORED_BOOKS']);
 
         $this->httpClient = new Client();
     }
