@@ -1,0 +1,23 @@
+version: '2'
+services:
+  php:
+    image: yiisoftware/yii2-php:7.4-apache
+    volumes:
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      - ./:/app:delegated
+    ports:
+      - '8000:80'
+
+  db:
+    image: mysql:5.7.29
+    container_name: trading_bot_db
+    ports:
+      - 3307:3306
+    volumes:
+      - ./docker-volumes/db:/var/lib/mysql
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=no
+      - MYSQL_ROOT_PASSWORD=TradingBot123*
+      - MYSQL_DATABASE=u517632122_trading_bot
+      - MYSQL_USER=u517632122_trading_bot
+      - MYSQL_PASSWORD=TradingBot123*

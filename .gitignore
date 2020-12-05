@@ -1,0 +1,6 @@
+/.env
+/config/db.php
+/vendor/
+/vagrant/
+/docker-volumes/
+/docker-compose-dev.yml
