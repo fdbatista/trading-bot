@@ -4,7 +4,8 @@ namespace app\controllers;
 
 use app\models\Tick;
 use Dotenv\Dotenv;
-use yii\db\Exception;
+use Exception;
+use Yii;
 use yii\httpclient\Client;
 use yii\web\Controller;
 
@@ -42,7 +43,7 @@ class BitsoApiController extends Controller
         try {
             $books = $this->getBooksList();
 
-            $transaction = \Yii::$app->db->beginTransaction();
+            $transaction = Yii::$app->db->beginTransaction();
             $processedRecords = 0;
 
             foreach ($books as $book) {
@@ -63,30 +64,38 @@ class BitsoApiController extends Controller
             $transaction->commit();
 
             return "$processedRecords records processed.";
-        } catch (\Exception $exc) {
+        } catch (Exception $exc) {
             return $exc->getMessage();
         }
     }
 
     private function getBooksList()
     {
-        $response = $this->httpClient->createRequest()
-            ->setMethod('GET')
-            ->setUrl($this->BOOKS_ENDPOINT)
-            ->send();
+        try {
+            $response = $this->httpClient->createRequest()
+                ->setMethod('GET')
+                ->setUrl($this->BOOKS_ENDPOINT)
+                ->send();
 
-        return ($response->isOk) ? $response->data['payload'] : [];
+            return ($response->isOk) ? $response->data['payload'] : [];
+        } catch (Exception $e) {
+            return [];
+        }
     }
 
     private function getTicker($bookName)
     {
-        $response = $this->httpClient->createRequest()
-            ->setMethod('GET')
-            ->setUrl($this->TICKER_ENDPOINT)
-            ->setData(['book' => $bookName])
-            ->send();
+        try {
+            $response = $this->httpClient->createRequest()
+                ->setMethod('GET')
+                ->setUrl($this->TICKER_ENDPOINT)
+                ->setData(['book' => $bookName])
+                ->send();
 
-        return ($response->isOk) ? $response->data['payload'] : [];
+            return ($response->isOk) ? $response->data['payload'] : [];
+        } catch (Exception $e) {
+            return [];
+        }
     }
 
 }
