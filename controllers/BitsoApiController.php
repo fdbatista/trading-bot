@@ -31,6 +31,12 @@ class BitsoApiController extends Controller
         $this->httpClient = new Client();
     }
 
+    public function beforeAction($action)
+    {
+        date_default_timezone_set('America/Mexico_City');
+        return true;
+    }
+
     public function actionGetBooksStatus()
     {
         try {
@@ -45,6 +51,7 @@ class BitsoApiController extends Controller
                 if (!in_array($bookName, $this->IGNORED_BOOKS)) {
                     $ticker = $this->getTicker($bookName);
                     $ticker['book'] = $bookName;
+                    $ticker['created_at'] = date('Y-m-d H:i:s');
 
                     $model = new Tick($ticker);
                     if ($model->save()) {
