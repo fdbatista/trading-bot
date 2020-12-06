@@ -4,3 +4,4 @@
 /vagrant/
 /docker-volumes/
 /docker-compose-dev.yml
+/.idea/
