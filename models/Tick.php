@@ -11,7 +11,7 @@ use Yii;
  * @property string|null $high
  * @property string|null $low
  * @property string|null $last
- * @property int|null $created_at
+ * @property string|null $created_at
  * @property string|null $book
  * @property string|null $volume
  * @property string|null $vwap
@@ -35,8 +35,7 @@ class Tick extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at'], 'integer'],
-            [['high', 'low', 'last', 'book', 'volume', 'vwap', 'ask', 'bid', 'change_24'], 'string', 'max' => 255],
+            [['high', 'low', 'last', 'created_at', 'book', 'volume', 'vwap', 'ask', 'bid', 'change_24'], 'string', 'max' => 255],
         ];
     }
 

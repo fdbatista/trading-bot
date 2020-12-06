@@ -45,7 +45,6 @@ class BitsoApiController extends Controller
                 if (!in_array($bookName, $this->IGNORED_BOOKS)) {
                     $ticker = $this->getTicker($bookName);
                     $ticker['book'] = $bookName;
-                    $ticker['created_at'] = time();
 
                     $model = new Tick($ticker);
                     if ($model->save()) {
