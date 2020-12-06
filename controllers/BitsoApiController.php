@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Tick;
 use Dotenv\Dotenv;
+use yii\db\Exception;
 use yii\httpclient\Client;
 use yii\web\Controller;
 
@@ -32,26 +33,33 @@ class BitsoApiController extends Controller
 
     public function actionGetBooksStatus()
     {
-        $books = $this->getBooksList();
+        try {
+            $books = $this->getBooksList();
 
-        $transaction = \Yii::$app->db->beginTransaction();
+            $transaction = \Yii::$app->db->beginTransaction();
+            $processedRecords = 0;
 
-        foreach ($books as $book) {
-            $bookName = $book['book'];
+            foreach ($books as $book) {
+                $bookName = $book['book'];
 
-            if (!in_array($bookName, $this->IGNORED_BOOKS)) {
-                $ticker = $this->getTicker($bookName);
-                $ticker['book'] = $bookName;
-                $ticker['created_at'] = time();
+                if (!in_array($bookName, $this->IGNORED_BOOKS)) {
+                    $ticker = $this->getTicker($bookName);
+                    $ticker['book'] = $bookName;
+                    $ticker['created_at'] = time();
 
-                $model = new Tick($ticker);
-                $model->save();
+                    $model = new Tick($ticker);
+                    if ($model->save()) {
+                        $processedRecords++;
+                    }
+                }
             }
+
+            $transaction->commit();
+
+            return "$processedRecords records processed.";
+        } catch (\Exception $exc) {
+            return $exc->getMessage();
         }
-
-        $transaction->commit();
-
-        return "OK";
     }
 
     private function getBooksList()

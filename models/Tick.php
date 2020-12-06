@@ -9,8 +9,9 @@ use Yii;
  *
  * @property int $id
  * @property string|null $high
+ * @property string|null $low
  * @property string|null $last
- * @property string|null $created_at
+ * @property int|null $created_at
  * @property string|null $book
  * @property string|null $volume
  * @property string|null $vwap
@@ -34,7 +35,8 @@ class Tick extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['high', 'last', 'created_at', 'book', 'volume', 'vwap', 'ask', 'bid', 'change_24'], 'string', 'max' => 255],
+            [['created_at'], 'integer'],
+            [['high', 'low', 'last', 'book', 'volume', 'vwap', 'ask', 'bid', 'change_24'], 'string', 'max' => 255],
         ];
     }
 
@@ -46,6 +48,7 @@ class Tick extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'high' => Yii::t('app', 'High'),
+            'low' => Yii::t('app', 'Low'),
             'last' => Yii::t('app', 'Last'),
             'created_at' => Yii::t('app', 'Created At'),
             'book' => Yii::t('app', 'Book'),
