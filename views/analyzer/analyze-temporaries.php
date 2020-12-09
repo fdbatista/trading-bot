@@ -7,6 +7,7 @@
 
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 
 $this->title = 'Analizar temporalidad';
 $this->params['breadcrumbs'][] = $this->title;
@@ -23,6 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
     <?= $form->field($model, 'temporary')->textInput(['autofocus' => true, 'type' => 'number']) ?>
+
+    <?= $form->field($model, 'book')->dropDownList($books, ['prompt'=>'Escoja']) ?>
 
     <div class="form-group">
         <div class="col-lg-offset-1 col-lg-11">

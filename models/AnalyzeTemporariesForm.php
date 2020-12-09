@@ -14,12 +14,14 @@ use yii\base\Model;
 class AnalyzeTemporariesForm extends Model
 {
     public $temporary;
+    public $book;
 
     public function rules()
     {
         return [
-            [['temporary'], 'required'],
+            [['temporary', 'book'], 'required'],
             ['temporary', 'integer'],
+            ['book', 'string'],
         ];
     }
 
@@ -27,6 +29,7 @@ class AnalyzeTemporariesForm extends Model
     {
         return [
             'temporary' => 'Temporalidad',
+            'book' => 'Moneda',
         ];
     }
 
