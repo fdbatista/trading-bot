@@ -29,7 +29,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'TradingBot',
+        'brandLabel' => '<i class="glyphicon glyphicon-book"></i>TradingBot',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -38,10 +38,11 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Inicio', 'url' => ['/site/index']],
-            ['label' => 'Acerca de', 'url' => ['/site/about']],
-            ['label' => 'Analizar', 'url' => ['/analyzer/analyze-temporaries']],
+            ['label' => '<i class="glyphicon glyphicon-home"></i>Inicio', 'url' => ['/site/index']],
+            ['label' => '<i class="glyphicon glyphicon-info-sign"></i>Acerca de', 'url' => ['/site/about']],
+            ['label' => '<i class="glyphicon glyphicon-screenshot"></i>Analizar', 'url' => ['/analyzer/analyze-temporaries']],
         ],
+        'encodeLabels' => false,
     ]);
     NavBar::end();
     ?>

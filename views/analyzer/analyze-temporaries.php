@@ -32,14 +32,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="form-group">
         <div class="col-lg-offset-1 col-lg-11">
-            <?= Html::submitButton('Aceptar', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+            <?= Html::submitButton('<i class="glyphicon glyphicon-ok"></i>Aceptar', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
         </div>
     </div>
 
     <?php ActiveForm::end(); ?>
 
     <div class="col-lg-offset-1">
-        <table width="100%">
+        <table class="block">
             <thead class="dropdown-header"><?= count($result) ?> registros</thead>
             <tbody>
             <tr>
