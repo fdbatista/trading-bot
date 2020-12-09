@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\models\AnalyzeTemporariesForm;
-use app\models\ContactForm;
 use app\models\Tick;
 use Yii;
 use yii\web\Controller;
@@ -32,12 +31,12 @@ class AnalyzerController extends Controller
         );
     }
 
-    private function getBooks() {
+    private function getBooks()
+    {
         $books = Tick::find()
             ->select('book')
             ->distinct()
             ->orderBy(['book' => SORT_DESC])
-            ->asArray()
             ->all();
 
         $res = [];
@@ -58,17 +57,38 @@ class AnalyzerController extends Controller
             ->asArray()
             ->all();
 
-        $result = [];
+        $chunks = array_chunk($rows, $model->temporary);
 
-        $i = 0;
-        foreach ($rows as $row) {
-            if ($i % $model->temporary === 0) {
-                $result[] = $row;
+        $results = array_map(function ($chunk) {
+            return $this->extractChunkData($chunk);
+        }, $chunks);
+
+        return $results;
+    }
+
+    private function extractChunkData($chunk)
+    {
+        $mostRecentDate = $chunk[0]['CREATED_AT'];
+        $mostRecentLast = $chunk[0]['LAST'];
+        $maxAsk = $chunk[0]['ASK'];
+        $minBid = $chunk[0]['BID'];
+
+        $elemCount = count($chunk);
+        for ($i = 1; $i < $elemCount; $i++) {
+            if ($chunk[$i]['ASK'] > $maxAsk) {
+                $maxAsk = $chunk[$i]['ASK'];
             }
-            $i++;
+            if ($chunk[$i]['BID'] < $minBid) {
+                $minBid = $chunk[$i]['BID'];
+            }
         }
 
-        return $result;
+        return [
+            'CREATED_AT' => $mostRecentDate,
+            'LAST' => $mostRecentLast,
+            'ASK' => $maxAsk,
+            'BID' => $minBid,
+        ];
     }
 
 }
