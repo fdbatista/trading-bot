@@ -5,9 +5,12 @@
 
 /* @var $model app\models\AnalyzeTemporariesForm */
 
+/* @var $books */
+/* @var $columns */
+/* @var $result */
+
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
 
 $this->title = 'Analizar temporalidad';
 $this->params['breadcrumbs'][] = $this->title;
@@ -36,8 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php ActiveForm::end(); ?>
 
     <div class="col-lg-offset-1">
-        <table>
-            <thead><b>Total: <?= count($result) ?></b></thead>
+        <table width="100%">
+            <thead class="dropdown-header"><?= count($result) ?> registros</thead>
             <tbody>
             <tr>
                 <?php

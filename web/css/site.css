@@ -115,7 +115,7 @@ a.desc:after {
 }
 
 .table-header {
-    width: 30%;
+    width: auto;
     background-color: #2b669a;
     color: #ffffff;
     padding: 5px 0 3px 5px;
