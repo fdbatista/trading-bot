@@ -1,11 +1,11 @@
 <?php
 namespace app\services;
 
-use app\models\AnalyzeTemporariesForm;
+use app\models\TemporaryAnalyzerForm;
 use app\repositories\TickRepository;
 use yii\base\Component;
 
-class BookAnalyzerService extends Component
+class TemporaryAnalyzerService extends Component
 {
 
     private $tickRepository;
@@ -16,7 +16,7 @@ class BookAnalyzerService extends Component
         parent::__construct();
     }
 
-    public function analyzeTemporaries(AnalyzeTemporariesForm $model)
+    public function analyzeTemporaries(TemporaryAnalyzerForm $model)
     {
         $ticks = $this->tickRepository->getTicksByBook($model->book);
         $chunks = array_chunk($ticks, $model->temporary);

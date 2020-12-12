@@ -11,7 +11,7 @@ use yii\base\Model;
  * @property-read User|null $user This property is read-only.
  *
  */
-class AnalyzeTemporariesForm extends Model
+class TemporaryAnalyzerForm extends Model
 {
     public $temporary;
     public $book;

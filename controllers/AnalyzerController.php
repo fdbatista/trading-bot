@@ -2,9 +2,9 @@
 
 namespace app\controllers;
 
-use app\models\AnalyzeTemporariesForm;
+use app\models\TemporaryAnalyzerForm;
 use app\repositories\TickRepository;
-use app\services\BookAnalyzerService;
+use app\services\TemporaryAnalyzerService;
 use Yii;
 use yii\web\Controller;
 
@@ -16,17 +16,17 @@ class AnalyzerController extends Controller
 
     const TICK_COLUMNS = ['CREATED_AT', 'LAST', 'ASK', 'BID'];
 
-    public function __construct($id, $module, TickRepository $tickRepository, BookAnalyzerService $bookAnalyzerService, $config = [])
+    public function __construct($id, $module, TickRepository $tickRepository, TemporaryAnalyzerService $temporaryAnalyzer, $config = [])
     {
         $this->tickRepository = $tickRepository;
-        $this->bookAnalyzerService = $bookAnalyzerService;
+        $this->bookAnalyzerService = $temporaryAnalyzer;
 
         parent::__construct($id, $module, $config);
     }
 
     public function actionAnalyzeTemporaries()
     {
-        $model = new AnalyzeTemporariesForm(['temporary' => 1]);
+        $model = new TemporaryAnalyzerForm(['temporary' => 1]);
 
         if ($model->load(Yii::$app->request->post())) {
             $result = $this->bookAnalyzerService->analyzeTemporaries($model);

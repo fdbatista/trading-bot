@@ -3,7 +3,7 @@
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 
-/* @var $model app\models\AnalyzeTemporariesForm */
+/* @var $model app\models\TemporaryAnalyzerForm */
 
 /* @var $books */
 /* @var $columns */
