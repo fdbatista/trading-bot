@@ -26,11 +26,11 @@ class TickRepository extends Component
         return $res;
     }
 
-    public function getTicksByBook($book) {
+    public function getTicksByBook($book, $sortMode) {
         return Tick::find()
             ->where(['book' => $book])
             ->select(self::TICK_COLUMNS)
-            ->orderBy(['id' => SORT_DESC])
+            ->orderBy(['id' => $sortMode])
             ->asArray()
             ->all();
     }

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\MedianAnalyzerForm;
 use app\models\TemporaryAnalyzerForm;
 use app\repositories\TickRepository;
 use app\services\TemporaryAnalyzerService;
@@ -34,13 +35,29 @@ class AnalyzerController extends Controller
             $result = [];
         }
 
-        $books = $this->tickRepository->getBooks();
-
         return $this->render('analyze-temporaries', [
                 'model' => $model,
-                'books' => $books,
+                'books' => $this->tickRepository->getBooks(),
                 'columns' => self::TICK_COLUMNS,
                 'result' => $result,
+            ]
+        );
+    }
+
+    public function actionAnalyzeMedians()
+    {
+        $model = new MedianAnalyzerForm(['temporary' => 1, 'period' => 1]);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $result = $this->bookAnalyzerService->analyzeMedians($model);
+        } else {
+            $result = [];
+        }
+
+        return $this->render('analyze-medians', [
+                'model' => $model,
+                'result' => $result,
+                'books' => $this->tickRepository->getBooks(),
             ]
         );
     }

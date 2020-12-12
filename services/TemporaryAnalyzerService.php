@@ -1,8 +1,10 @@
 <?php
+
 namespace app\services;
 
 use app\models\TemporaryAnalyzerForm;
 use app\repositories\TickRepository;
+use app\utils\MedianAnalyzerUtil;
 use yii\base\Component;
 
 class TemporaryAnalyzerService extends Component
@@ -18,7 +20,19 @@ class TemporaryAnalyzerService extends Component
 
     public function analyzeTemporaries(TemporaryAnalyzerForm $model)
     {
-        $ticks = $this->tickRepository->getTicksByBook($model->book);
+        return $this->getTemporaries($model, SORT_DESC);
+    }
+
+    public function analyzeMedians(TemporaryAnalyzerForm $model)
+    {
+        $temporaries = $this->getTemporaries($model, SORT_ASC);
+
+        return MedianAnalyzerUtil::extractMedianFromTemporaries($temporaries, 4);
+    }
+
+    private function getTemporaries(TemporaryAnalyzerForm $model, $sortMode)
+    {
+        $ticks = $this->tickRepository->getTicksByBook($model->book, $sortMode);
         $chunks = array_chunk($ticks, $model->temporary);
 
         return array_map(function ($chunk) {

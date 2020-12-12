@@ -133,3 +133,7 @@ a.desc:after {
 .glyphicon {
     margin-right: 5px;
 }
+
+.row-separator {
+    border-bottom: 1px dashed #cccccc;
+}

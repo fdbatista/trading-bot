@@ -40,7 +40,8 @@ AppAsset::register($this);
         'items' => [
             ['label' => '<i class="glyphicon glyphicon-home"></i>Inicio', 'url' => ['/site/index']],
             ['label' => '<i class="glyphicon glyphicon-info-sign"></i>Acerca de', 'url' => ['/site/about']],
-            ['label' => '<i class="glyphicon glyphicon-screenshot"></i>Analizar', 'url' => ['/analyzer/analyze-temporaries']],
+            ['label' => '<i class="glyphicon glyphicon-screenshot"></i>Temporalidad', 'url' => ['/analyzer/analyze-temporaries']],
+            ['label' => '<i class="glyphicon glyphicon-random"></i>Mediana', 'url' => ['/analyzer/analyze-medians']],
         ],
         'encodeLabels' => false,
     ]);

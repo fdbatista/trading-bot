@@ -3,16 +3,16 @@
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 
-/* @var $model app\models\TemporaryAnalyzerForm */
+/* @var $model app\models\MedianAnalyzerForm */
 
 /* @var $books */
-/* @var $columns */
+
 /* @var $result */
 
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
-$this->title = 'Analizar temporalidad';
+$this->title = 'Analizar medias';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
@@ -28,7 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $form->field($model, 'temporary')->textInput(['autofocus' => true, 'type' => 'number']) ?>
 
-    <?= $form->field($model, 'book')->dropDownList($books, ['prompt'=>'Escoja']) ?>
+    <?= $form->field($model, 'period')->textInput(['type' => 'number']) ?>
+
+    <?= $form->field($model, 'book')->dropDownList($books, ['prompt' => 'Escoja']) ?>
 
     <div class="form-group">
         <div class="col-lg-offset-1 col-lg-11">
@@ -43,10 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <thead class="dropdown-header"><?= count($result) ?> registros</thead>
             <tbody>
             <tr>
-                <?php
-                foreach ($columns as $column) {
-                    echo "<td class='table-header'>$column</td>";
-                } ?>
+                <td class='table-header'>LAST</td>
+                <td class='table-header'>MEDIA</td>
             </tr>
             </tbody>
             <?php
