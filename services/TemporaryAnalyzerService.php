@@ -2,6 +2,7 @@
 
 namespace app\services;
 
+use app\models\MedianAnalyzerForm;
 use app\models\TemporaryAnalyzerForm;
 use app\repositories\TickRepository;
 use app\utils\MedianAnalyzerUtil;
@@ -23,11 +24,11 @@ class TemporaryAnalyzerService extends Component
         return $this->getTemporaries($model, SORT_DESC);
     }
 
-    public function analyzeMedians(TemporaryAnalyzerForm $model)
+    public function analyzeMedians(MedianAnalyzerForm $model)
     {
         $temporaries = $this->getTemporaries($model, SORT_ASC);
 
-        return MedianAnalyzerUtil::extractMedianFromTemporaries($temporaries, 4);
+        return MedianAnalyzerUtil::extractMedianFromTemporaries($temporaries, $model->period);
     }
 
     private function getTemporaries(TemporaryAnalyzerForm $model, $sortMode)

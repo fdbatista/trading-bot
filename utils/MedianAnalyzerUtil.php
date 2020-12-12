@@ -8,6 +8,7 @@ class MedianAnalyzerUtil
     public static function extractMedianFromTemporaries(array $temporaries, $period)
     {
         $lastValues = self::extractLastFromTemporaries($temporaries);
+        $lastValues = array_splice($lastValues, 0, 8);
 
         $lastStartingIndex = count($lastValues) - $period;
         $result = [];
@@ -16,10 +17,20 @@ class MedianAnalyzerUtil
             $arrayOfLastsFromRange = array_slice($lastValues, $i, $period);
             $arrayMedian = self::calculateMedianFromArrayOfLasts($arrayOfLastsFromRange);
 
-            $result[] = [
-                'LAST' => $arrayOfLastsFromRange[$period - 1],
-                'MEDIA' => $arrayMedian,
-            ];
+            if ($i == 0) {
+                foreach ($arrayOfLastsFromRange as $rangeValue) {
+                    $result[] = [
+                        'LAST' => $rangeValue,
+                        'MEDIA' => '',
+                    ];
+                }
+                $result[$period - 1]['MEDIA'] = $arrayMedian;
+            } else {
+                $result[] = [
+                    'LAST' => $arrayOfLastsFromRange[$period - 1],
+                    'MEDIA' => $arrayMedian,
+                ];
+            }
         }
 
         return $result;
