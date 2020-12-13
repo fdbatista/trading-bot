@@ -24,13 +24,6 @@ class TemporaryAnalyzerService extends Component
         return $this->getTemporaries($model, SORT_DESC);
     }
 
-    public function analyzeMedians(MedianAnalyzerForm $model)
-    {
-        $temporaries = $this->getTemporaries($model, SORT_ASC);
-
-        return MedianAnalyzerUtil::extractMedianFromTemporaries($temporaries, $model->period);
-    }
-
     private function getTemporaries(TemporaryAnalyzerForm $model, $sortMode)
     {
         $ticks = $this->tickRepository->getTicksByBook($model->book, $sortMode);
@@ -64,6 +57,20 @@ class TemporaryAnalyzerService extends Component
             'ASK' => $maxAsk,
             'BID' => $minBid,
         ];
+    }
+
+    public function calculateSMA(MedianAnalyzerForm $model)
+    {
+        $temporaries = $this->getTemporaries($model, SORT_ASC);
+
+        return MedianAnalyzerUtil::extractSMAFromTemporaries($temporaries, $model->period);
+    }
+
+    public function calculateEMA(MedianAnalyzerForm $model)
+    {
+        $temporaries = $this->getTemporaries($model, SORT_ASC);
+
+        return MedianAnalyzerUtil::extractEMAFromTemporaries($temporaries, $model->period);
     }
 
 }

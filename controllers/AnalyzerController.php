@@ -49,7 +49,7 @@ class AnalyzerController extends Controller
         $model = new MedianAnalyzerForm(['temporary' => 1, 'period' => 1]);
 
         if ($model->load(Yii::$app->request->post())) {
-            $result = $this->bookAnalyzerService->analyzeMedians($model);
+            $result = $this->bookAnalyzerService->calculateEMA($model);
         } else {
             $result = [];
         }

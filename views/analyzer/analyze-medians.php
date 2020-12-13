@@ -46,7 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <tbody>
             <tr>
                 <td class='table-header'>LAST</td>
-                <td class='table-header'>MEDIA</td>
+                <td class='table-header'>SMA</td>
+                <td class='table-header'>EMA</td>
             </tr>
             </tbody>
             <?php

@@ -2,8 +2,7 @@
 
 namespace tests\unit\models;
 
-use app\models\User;
-use app\services\MedianAnalyzerUtil;
+use app\utils\MedianAnalyzerUtil;
 
 class MedianAnalyzerUtilTest extends \Codeception\Test\Unit
 {
@@ -49,11 +48,9 @@ class MedianAnalyzerUtilTest extends \Codeception\Test\Unit
 
         ];
 
-        $median = MedianAnalyzerUtil::extractMedianFromTemporaries($temporaries, 2);
+        $median = MedianAnalyzerUtil::extractSMAFromTemporaries($temporaries, 2);
 
-        expect(count($median))->equals(3);
-
-        expect_not(User::findIdentity(999));
+        expect(count($median))->equals(6);
     }
 
 }
